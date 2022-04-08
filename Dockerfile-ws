@@ -5,10 +5,8 @@ ENV SRC_DIR=./ws
 
 
 ARG PRJ_DIR=${MY_HOME}/projects
-ARG INSTALL_PREFIX=/opt/mxr
-
-ARG PRJ_DIR=${MY_HOME}/projects
 ENV PRJ_DIR=${PRJ_DIR}
+ARG INSTALL_PREFIX=/opt/mxr
 
 USER root
 RUN apt-get update
@@ -18,10 +16,6 @@ USER ${MY_USER}
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash;rosdep update"
 
 USER root
-
-RUN mkdir -p ${INSTALL_PREFIX}/lib  && \ 
-    sh -c "echo ${INSTALL_PREFIX}/lib > /etc/ld.so.conf.d/mxr.conf" && \ 
-    ldconfig
 
 RUN mkdir -p ${PRJ_DIR}
 RUN cd ${PRJ_DIR}/ &&  \
@@ -48,6 +42,8 @@ RUN mkdir ${PRJ_DIR}/car/lib/car_com/build && \
     make install  && \
     echo "export CarCom_DIR=${INSTALL_PREFIX}/lib" >> ${MY_HOME}/.bashrc
     
+RUN /bin/bash -c "echo ${INSTALL_PREFIX}/lib > /etc/ld.so.conf.d/mxr.conf;ldconfig"
+    
 RUN chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
 
 ADD ${SRC_DIR}/src/setup_ws.sh   ${INST_SCRIPTS}/setup_ws.sh  
@@ -55,6 +51,9 @@ RUN chmod a+x ${INST_SCRIPTS}/setup_ws.sh
 USER ${MY_USER}
 RUN $INST_SCRIPTS/setup_ws.sh  
 
+RUN echo "cd ./projects/ros2/ws00" >> ${MY_HOME}/.bash_history && \
+	echo "ros2 topic list" >> ${MY_HOME}/.bash_history && \
+	echo "ros2 run mxr_base mxr_base_node" >> ${MY_HOME}/.bash_history
     
 # clean apt
 USER root
