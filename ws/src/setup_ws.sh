@@ -5,4 +5,12 @@ set -e
 echo "Install ws"
 
 source /opt/ros/${ROS_DISTRO}/setup.bash
-cd ${PRJ_DIR}/ros/ws00
+
+mkdir -p ${PRJ_DIR}/ros2/ws00/src
+cd ${PRJ_DIR}/ros2/ws00/src/
+git clone https://github.com/mx-car/mxr.git 
+cd ${PRJ_DIR}/ros2/ws00
+#rosdep update
+#rosdep install -i --from-path src --rosdistro galactic -y
+colcon build
+echo "source ${PRJ_DIR}/ros2/ws00/install/setup.bash" >> ~/.bashrc
