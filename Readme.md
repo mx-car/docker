@@ -11,7 +11,7 @@ docker build -f Dockerfile-ws   -t mxr:ws .
 Then, run it:
 ```
 docker run --privileged -ti --network="host" mxr:ws
-docker run --privileged -ti --network="host"  --device=/dev/ttyUSB0 --device=/dev/ttyACM0 --device=/dev/ttyACM1 --device=/dev/input/js0   mxr:ws
+docker run --privileged -ti --network="host"  --device=/dev/ttyUSB0 --device=/dev/ttyACM0 --device=/dev/ttyACM1 --device=/dev/input/js0  --env="DISPLAY" mxr:ws
 
 ```
 
