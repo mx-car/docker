@@ -37,19 +37,24 @@ ADD ${SRC_DIR}/src/install_turbovnc.sh ${INST_SCRIPTS}/install_turbovnc.sh
 RUN chmod a+x ${INST_SCRIPTS}/install_turbovnc.sh
 RUN $INST_SCRIPTS/install_turbovnc.sh  
    
-# Install programming enviroments 
-USER root
-ADD ${SRC_DIR}/src/install_ide.sh ${INST_SCRIPTS}/install_ide.sh
-RUN chmod a+x ${INST_SCRIPTS}/install_ide.sh
-RUN $INST_SCRIPTS/install_ide.sh  
-
-
 # Install some utils like vim, tmux, git, ...
 USER root
 ADD ${SRC_DIR}/src/install_utils.sh ${INST_SCRIPTS}/install_utils.sh
 RUN chmod a+x ${INST_SCRIPTS}/install_utils.sh
 RUN $INST_SCRIPTS/install_utils.sh
 
+# Install programming enviroments 
+USER root
+ADD ${SRC_DIR}/src/install_ide.sh ${INST_SCRIPTS}/install_ide.sh
+RUN chmod a+x ${INST_SCRIPTS}/install_ide.sh
+RUN $INST_SCRIPTS/install_ide.sh  
+
+USER ${MY_USER}
+RUN code  --install-extension ms-vscode.cpptools
+RUN code  --install-extension ms-vscode.cmake-tools
+RUN code  --install-extension ms-python.python
+RUN code  --install-extension nonanonno.vscode-ros2
+RUN code  --install-extension platformio.platformio-ide
 
 # clean apt
 USER root
