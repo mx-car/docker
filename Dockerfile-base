@@ -49,6 +49,13 @@ ADD ${SRC_DIR}/src/install_ide.sh ${INST_SCRIPTS}/install_ide.sh
 RUN chmod a+x ${INST_SCRIPTS}/install_ide.sh
 RUN $INST_SCRIPTS/install_ide.sh  
 
+USER ${MY_USER}
+RUN code  --install-extension ms-vscode.cpptools
+RUN code  --install-extension ms-vscode.cmake-tools
+RUN code  --install-extension ms-python.python
+RUN code  --install-extension nonanonno.vscode-ros2
+RUN code  --install-extension platformio.platformio-ide
+
 # clean apt
 USER root
 RUN rm -rf /var/lib/apt/lists/*
