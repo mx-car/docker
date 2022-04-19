@@ -1,10 +1,10 @@
-# robotics-base
+# base-ros2
 
 This is a container TurboVNC and Ubuntu XFCE desktop.
 
 First, get the image by cloning this repository and building it:
 ```
-docker build -f Dockerfile-base -t mxr:base --build-arg MY_PASSWORD=xyz431 .
+docker build -f Dockerfile-base -t mxr:base-ros2 --build-arg MY_PASSWORD=xyz431 .
 docker build -f Dockerfile-ws   -t mxr:ws .
 ```
 

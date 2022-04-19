@@ -1,4 +1,4 @@
-FROM mxr:base
+FROM mxr:base-ros2
 
 ENV INST_SCRIPTS=/tmp
 ENV SRC_DIR=./ws
